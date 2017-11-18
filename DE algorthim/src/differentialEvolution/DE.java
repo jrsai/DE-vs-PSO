@@ -16,7 +16,7 @@ public class DE {
 	static final double F = 0.8; //differential weight
 	static final int numRuns = 51; //number of runs
 	static int D = 2; //number of unknown variables
-	static final int Max_NFC = 5000*D; //number of function calls
+	static final int Max_NFC = 3000*D; //number of function calls
 	static Random rand = new Random();
 	static double minRange = -10.0;
 	static double maxRange = 10.0;
