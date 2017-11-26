@@ -3,7 +3,7 @@ public interface ControlParameters {
 	int SWARM_SIZE = 100;		
 	int PROBLEM_DIMENSION = 2;	//2, 5, 10
 	int MAX_ITERATION = 5000*PROBLEM_DIMENSION;
-	int FUNCTION_NUM = 1; 
+	int FUNCTION_NUM = 9; 
 	/* 1 = High Conditioned Elliptic Function
 	 * 2 = Bent Cigar Function
 	 * 3 = Discus Function
