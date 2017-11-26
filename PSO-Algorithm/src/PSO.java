@@ -25,6 +25,7 @@ public class PSO implements ControlParameters {
 		double err = 9999;
 		
 		while(t < MAX_ITERATION && err > Functions.ERR_TOLERANCE) {
+			
 			// step 1 - update pBest
 			for(int i=0; i<SWARM_SIZE; i++) {
 				if(fitnessValueList[i] < pBest[i]) {
@@ -50,19 +51,19 @@ public class PSO implements ControlParameters {
 				
 				// step 3 - update velocity
 				double[] newVel = new double[PROBLEM_DIMENSION];
-				newVel[0] = (w * p.getVelocity().getPos()[0]) + 
-							(r1 * C1) * (pBestLocation.get(i).getLoc()[0] - p.getLocation().getLoc()[0]) +
-							(r2 * C2) * (gBestLocation.getLoc()[0] - p.getLocation().getLoc()[0]);
-				newVel[1] = (w * p.getVelocity().getPos()[1]) + 
-							(r1 * C1) * (pBestLocation.get(i).getLoc()[1] - p.getLocation().getLoc()[1]) +
-							(r2 * C2) * (gBestLocation.getLoc()[1] - p.getLocation().getLoc()[1]);
+				for (int j=0; j<PROBLEM_DIMENSION; j++) {
+					newVel[j] = (w * p.getVelocity().getPos()[j]) + 
+							(r1 * C1) * (pBestLocation.get(i).getLoc()[j] - p.getLocation().getLoc()[j]) +
+							(r2 * C2) * (gBestLocation.getLoc()[j] - p.getLocation().getLoc()[j]);
+				}
 				Velocity vel = new Velocity(newVel);
 				p.setVelocity(vel);
 				
 				// step 4 - update location
 				double[] newLoc = new double[PROBLEM_DIMENSION];
-				newLoc[0] = p.getLocation().getLoc()[0] + newVel[0];
-				newLoc[1] = p.getLocation().getLoc()[1] + newVel[1];
+				for (int j=0; j<PROBLEM_DIMENSION; j++) {
+					newLoc[j] = p.getLocation().getLoc()[j] + newVel[j];
+				}
 				Location loc = new Location(newLoc);
 				p.setLocation(loc);
 			}
@@ -75,7 +76,7 @@ public class PSO implements ControlParameters {
 		
 		System.out.print("Best Location: (");
 		for (int i=0; i<PROBLEM_DIMENSION; i++) {
-			System.out.print(gBestLocation.getLoc()[i] );
+			System.out.print(gBestLocation.getLoc()[i] + ", " );
 			}
 		System.out.print(")" + "\n");
 		System.out.println("Fitness Value: " + gBest);
@@ -89,14 +90,16 @@ public class PSO implements ControlParameters {
 			
 			// randomize location inside a space defined in Problem Set
 			double[] loc = new double[PROBLEM_DIMENSION];
-			loc[0] = Functions.LOC_X_LOW + generator.nextDouble() * (Functions.LOC_X_HIGH - Functions.LOC_X_LOW);
-			loc[1] = Functions.LOC_Y_LOW + generator.nextDouble() * (Functions.LOC_Y_HIGH - Functions.LOC_Y_LOW);
+			for(int j=0; j<PROBLEM_DIMENSION; j++) {
+				loc[j] = Functions.BOUND_LOW + generator.nextDouble() * (Functions.BOUND_HIGH - Functions.BOUND_LOW);
+			}
 			Location location = new Location(loc);
 			
 			// randomize velocity in the range defined in Problem Set
 			double[] vel = new double[PROBLEM_DIMENSION];
-			vel[0] = Functions.VEL_LOW + generator.nextDouble() * (Functions.VEL_HIGH - Functions.VEL_LOW);
-			vel[1] = Functions.VEL_LOW + generator.nextDouble() * (Functions.VEL_HIGH - Functions.VEL_LOW);
+			for(int j=0; j<PROBLEM_DIMENSION; j++) {
+				vel[j] = Functions.BOUND_LOW + generator.nextDouble() * (Functions.BOUND_HIGH - Functions.BOUND_LOW);
+			}
 			Velocity velocity = new Velocity(vel);
 			
 			p.setLocation(location);

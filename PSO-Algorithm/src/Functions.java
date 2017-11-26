@@ -1,11 +1,6 @@
 public class Functions implements ControlParameters {
-	public static final double LOC_X_LOW = -10;
-	public static final double LOC_X_HIGH = 10;
-	public static final double LOC_Y_LOW = -10;
-	public static final double LOC_Y_HIGH = 10;
-	public static final double VEL_LOW = -10;
-	public static final double VEL_HIGH = 10;
-	
+	public static final double BOUND_LOW = -10;
+	public static final double BOUND_HIGH = 10;
 	public static final double ERR_TOLERANCE = 1E-20; // the smaller the tolerance, the more accurate the result, 
 	                                                  // but the number of iteration is increased
 	
