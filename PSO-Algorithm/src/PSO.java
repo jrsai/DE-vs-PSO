@@ -73,8 +73,14 @@ public class PSO implements ControlParameters {
 			updateFitnessList();
 		}
 		
-		System.out.println("(" + gBestLocation.getLoc()[0] + "," + gBestLocation.getLoc()[1] + ")");
-	}
+		System.out.print("Best Location: (");
+		for (int i=0; i<PROBLEM_DIMENSION; i++) {
+			System.out.print(gBestLocation.getLoc()[i] );
+			}
+		System.out.print(")" + "\n");
+		System.out.println("Fitness Value: " + gBest);
+		System.out.println("\n");
+		}
 	
 	public void initializeSwarm() {
 		Particle p;

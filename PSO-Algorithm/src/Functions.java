@@ -12,7 +12,6 @@ public class Functions implements ControlParameters {
 	public static double evaluate(Location location) {
 		double result = 0;
 		
-		// Replace with switch statement and cases for each function
 		switch(FUNCTION_NUM){
 		case 1 : 
 			result = AssignFitness_HighConditioned(location);
