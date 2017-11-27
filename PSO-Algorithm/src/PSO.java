@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
@@ -7,13 +6,14 @@ public class PSO implements ControlParameters {
 	private Vector<Particle> swarm = new Vector<Particle>();
 	private double[] pBest = new double[SWARM_SIZE];
 	private Vector<Location> pBestLocation = new Vector<Location>();
+	private ArrayList<Double> generationList = new ArrayList<>();
 	private double gBest;
 	private Location gBestLocation;
 	private double[] fitnessValueList = new double[SWARM_SIZE];
 	
 	Random generator = new Random();
 	
-	public void execute() {
+	public ArrayList<Double> execute() {
 		initializeSwarm();
 		updateFitnessList();
 		
@@ -28,7 +28,7 @@ public class PSO implements ControlParameters {
 		
 		while(t < MAX_ITERATION && err > Functions.ERR_TOLERANCE) {
 			
-			// step 1 - update pBest
+			// Step 1 - Update Personal Best
 			for(int i=0; i<SWARM_SIZE; i++) {
 				if(fitnessValueList[i] < pBest[i]) {
 					pBest[i] = fitnessValueList[i];
@@ -36,7 +36,7 @@ public class PSO implements ControlParameters {
 				}
 			}
 				
-			// step 2 - update gBest
+			// Step 2 - Update Global Best
 			int bestParticleIndex = getMinPos(fitnessValueList);
 			if(t == 0 || fitnessValueList[bestParticleIndex] < gBest) {
 				gBest = fitnessValueList[bestParticleIndex];
@@ -51,7 +51,7 @@ public class PSO implements ControlParameters {
 				
 				Particle p = swarm.get(i);
 				
-				// step 3 - update velocity
+				// Step 3 - Update Velocity
 				double[] newVel = new double[PROBLEM_DIMENSION];
 				for (int j=0; j<PROBLEM_DIMENSION; j++) {
 					newVel[j] = (w * p.getVelocity().getPos()[j]) + 
@@ -61,7 +61,7 @@ public class PSO implements ControlParameters {
 				Velocity vel = new Velocity(newVel);
 				p.setVelocity(vel);
 				
-				// step 4 - update location
+				// Step 4 - Update Location
 				double[] newLoc = new double[PROBLEM_DIMENSION];
 				for (int j=0; j<PROBLEM_DIMENSION; j++) {
 					newLoc[j] = p.getLocation().getLoc()[j] + newVel[j];
@@ -73,13 +73,15 @@ public class PSO implements ControlParameters {
 				t++;
 				updateFitnessList();	
 			}
-			System.out.println(gBest);
+			System.out.println(gBest); // Output of the Global Best for each generation (100 Particles)
+			generationList.add(gBest);
 		}
-		System.out.print("Best Location: (");
+		System.out.print("Best Location: ("); // Output of the Final Best Location for 1 run of the algorithm
 		for (int i=0; i<PROBLEM_DIMENSION; i++) {
 			System.out.print(gBestLocation.getLoc()[i] + ", " );
 		}
 		System.out.print(")" + "\n" + "\n");
+		return generationList;
 	}
 	
 	public void initializeSwarm() {
