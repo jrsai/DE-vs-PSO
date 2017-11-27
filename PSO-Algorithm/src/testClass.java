@@ -15,7 +15,7 @@ public class testClass implements ControlParameters {
 		long startTime = System.currentTimeMillis();
 		
 		for (int i=0; i<NUMBER_OF_RUNS; i++) { // 51 Runs of PSO
-			listOLists.add(new PSO().execute());
+			listOLists.add(new PSO().execute(i));
 			findBest(i);
 		}
 		
