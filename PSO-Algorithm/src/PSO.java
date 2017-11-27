@@ -18,6 +18,7 @@ public class PSO implements ControlParameters {
 	Random generator = new Random();
 	
 	public ArrayList<Double> execute() {
+		fileNameGenerator();
 		initializeSwarm();
 		updateFitnessList();
 		
