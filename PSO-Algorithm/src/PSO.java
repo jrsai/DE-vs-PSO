@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
@@ -39,7 +41,7 @@ public class PSO implements ControlParameters {
 			if(t == 0 || fitnessValueList[bestParticleIndex] < gBest) {
 				gBest = fitnessValueList[bestParticleIndex];
 				gBestLocation = swarm.get(bestParticleIndex).getLocation();
-			}
+			}	
 			
 			w = W_UPPERBOUND - (((double) t) / MAX_ITERATION) * (W_UPPERBOUND - W_LOWERBOUND);
 			
@@ -66,22 +68,19 @@ public class PSO implements ControlParameters {
 				}
 				Location loc = new Location(newLoc);
 				p.setLocation(loc);
+				
+				err = Functions.evaluate(gBestLocation) - 0; // minimizing the functions means it's getting closer to 0
+				t++;
+				updateFitnessList();	
 			}
-			
-			err = Functions.evaluate(gBestLocation) - 0; // minimizing the functions means it's getting closer to 0
-			
-			t++;
-			updateFitnessList();
+			System.out.println(gBest);
 		}
-		
 		System.out.print("Best Location: (");
 		for (int i=0; i<PROBLEM_DIMENSION; i++) {
 			System.out.print(gBestLocation.getLoc()[i] + ", " );
-			}
-		System.out.print(")" + "\n");
-		System.out.println("Fitness Value: " + gBest);
-		System.out.println("\n");
 		}
+		System.out.print(")" + "\n" + "\n");
+	}
 	
 	public void initializeSwarm() {
 		Particle p;
