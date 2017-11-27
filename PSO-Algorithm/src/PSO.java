@@ -1,15 +1,19 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 
+
 public class PSO implements ControlParameters {
-	private Vector<Particle> swarm = new Vector<Particle>();
-	private double[] pBest = new double[SWARM_SIZE];
-	private Vector<Location> pBestLocation = new Vector<Location>();
-	private ArrayList<Double> generationList = new ArrayList<>();
-	private double gBest;
-	private Location gBestLocation;
-	private double[] fitnessValueList = new double[SWARM_SIZE];
+	private static Vector<Particle> swarm = new Vector<Particle>();
+	private static double[] pBest = new double[SWARM_SIZE];
+	private static Vector<Location> pBestLocation = new Vector<Location>();
+	private static ArrayList<Double> generationList = new ArrayList<>();
+	private static double gBest;
+	private static String CSV_FILENAME = "";
+	private static Location gBestLocation;
+	private static double[] fitnessValueList = new double[SWARM_SIZE];
 	
 	Random generator = new Random();
 	
@@ -83,6 +87,66 @@ public class PSO implements ControlParameters {
 		System.out.print(")" + "\n" + "\n");
 		return generationList;
 	}
+	
+	public static void sendGen() {
+		for (int i = 0; i < pBest.length; i++) {
+			tallyData(CSV_FILENAME, pBestLocation.get(i).getLoc()[0], pBestLocation.get(i).getLoc()[1], pBest[i]);
+		}
+	}
+	
+	public static void fileNameGenerator() {
+		switch(FUNCTION_NUM){
+		case 1 : 
+			CSV_FILENAME=PROBLEM_DIMENSION + "D_HighConditioned_PSO_ALL.csv";
+			break;
+		case 2 :
+			CSV_FILENAME=PROBLEM_DIMENSION + "D_BentCigar_PSO_ALL.csv";
+			break;
+		case 3 :
+			CSV_FILENAME=PROBLEM_DIMENSION + "D_Discus_PSO_ALL.csv";
+			break;
+		case 4 :
+			CSV_FILENAME=PROBLEM_DIMENSION + "D_Rosenbrocks_PSO_ALL.csv";
+			break;
+		case 5 :
+			CSV_FILENAME=PROBLEM_DIMENSION + "D_Ackleys_PSO_ALL.csv";
+			break;
+		case 6 :
+			CSV_FILENAME=PROBLEM_DIMENSION + "D_Weierstrass_PSO_ALL.csv";
+			break;
+		case 7 :
+			CSV_FILENAME=PROBLEM_DIMENSION + "D_Griewanks_PSO_ALL.csv";
+			break;
+		case 8 :
+			CSV_FILENAME=PROBLEM_DIMENSION + "D_Rastrigins_PSO_ALL.csv";
+			
+			break;
+		case 9 :
+			CSV_FILENAME=PROBLEM_DIMENSION + "D_Katsuura_PSO_ALL.csv";
+			break;
+		}
+	}
+	
+	//method to export data to csv file
+	public static void tallyData(String filename, double locX, double locY, double bestFitness) {
+		FileWriter fileWriter = null;
+		try {
+			fileWriter = new FileWriter(filename, true);
+			fileWriter.append(String.valueOf(locX) + "," + String.valueOf(locY) + "," + String.valueOf(bestFitness));
+			fileWriter.append("\n");
+		} catch (Exception e) {
+			System.out.println("Error in CSVFileWriter!");
+			e.printStackTrace();	
+			} finally {
+				try {
+					fileWriter.flush();
+					fileWriter.close();
+				} catch (IOException e) {
+					System.out.println("Error while flushing/closing fileWriter!");
+					e.printStackTrace();
+				}
+			}
+		}
 	
 	public void initializeSwarm() {
 		Particle p;

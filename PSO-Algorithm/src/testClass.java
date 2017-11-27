@@ -26,7 +26,6 @@ public class testClass implements ControlParameters {
 		
 		fileNameGenerator();
 		tallyData();
-		
 		calculateMean();
 		calculateWorst();
 		calculateBest();
