@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class testClass {
 	
 	private static int NUMBER_OF_RUNS = 51;
-	private static ArrayList<fitnessList> outputValues = new ArrayList<>();
 
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
