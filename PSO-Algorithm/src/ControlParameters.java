@@ -1,7 +1,7 @@
 public interface ControlParameters {
 	
 	int SWARM_SIZE = 100; // Population		
-	int PROBLEM_DIMENSION = 5;	//2, 5, 10
+	int PROBLEM_DIMENSION = 2;	//2, 5, 10
 	int MAX_ITERATION = 3000*PROBLEM_DIMENSION; 
 	
 	int FUNCTION_NUM = 6; 

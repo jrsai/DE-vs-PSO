@@ -17,7 +17,7 @@ public class PSO implements ControlParameters {
 	
 	Random generator = new Random();
 	
-	public ArrayList<Double> execute() {
+	public ArrayList<Double> execute(int runNum) {
 		fileNameGenerator();
 		initializeSwarm();
 		updateFitnessList();
@@ -77,6 +77,9 @@ public class PSO implements ControlParameters {
 				err = Functions.evaluate(gBestLocation) - 0; // minimizing the functions means it's getting closer to 0
 				t++;
 				updateFitnessList();	
+			}
+			if (runNum == 0) {
+				sendGen();
 			}
 			System.out.println(gBest); // Output of the Global Best for each generation (100 Particles)
 			generationList.add(gBest);
