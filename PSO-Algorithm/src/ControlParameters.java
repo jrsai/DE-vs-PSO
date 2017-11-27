@@ -1,19 +1,19 @@
 public interface ControlParameters {
 	
 	int SWARM_SIZE = 100; // Population		
-	int PROBLEM_DIMENSION = 2;	//2, 5, 10
+	int PROBLEM_DIMENSION = 10;	//2, 5, 10
 	int MAX_ITERATION = 3000*PROBLEM_DIMENSION; 
 	
-	int FUNCTION_NUM = 2; 
-	/* 1 = High Conditioned Elliptic Function
-	 * 2 = Bent Cigar Function
-	 * 3 = Discus Function
-	 * 4 = Rosenbrock's Functions
-	 * 5 = Ackley's Function
-	 * 6 = Weierstrass Function
-	 * 7 = Griewank's Function
-	 * 8 = Rastrigin's Function
-	 * 9 = Katsuura Function
+	int FUNCTION_NUM = 9; 
+	/* 1 = High Conditioned Elliptic Function (Medium)
+	 * 2 = Bent Cigar Function (Fast)
+	 * 3 = Discus Function (Fast)
+	 * 4 = Rosenbrock's Functions (Fast)
+	 * 5 = Ackley's Function (Medium)
+	 * 6 = Weierstrass Function (Slow)
+	 * 7 = Griewank's Function (Medium)
+	 * 8 = Rastrigin's Function (Medium)
+	 * 9 = Katsuura Function (Slow)
 	 * */
 	
 	 // Given in Project Description

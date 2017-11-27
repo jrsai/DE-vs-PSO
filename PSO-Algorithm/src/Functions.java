@@ -41,13 +41,14 @@ public class Functions implements ControlParameters {
 		return result;
 	}
 	
+	
 	public static double AssignFitness_HighConditioned(Location location) {
 		double sum = 0;
 		double ten_6 = Math.pow(10, 6);
 		
-		for (int i = 0; i < PROBLEM_DIMENSION; i++) {
+		for (int i = 1; i <= PROBLEM_DIMENSION; i++) {
 			double exp  = (i - 1)/(PROBLEM_DIMENSION - 1);
-			sum = sum + (Math.pow(ten_6, exp) * Math.pow(location.getLoc()[i], 2));	
+			sum = sum + (Math.pow(ten_6, exp) * Math.pow(location.getLoc()[i-1], 2));	
 		}
 		
 		double answer = sum;
@@ -59,11 +60,11 @@ public class Functions implements ControlParameters {
 
 		double sum = 0;
 		double ten_6 = Math.pow(10, 6);
-		for (int i = 0; i < PROBLEM_DIMENSION; i++) {
-			sum = sum + (Math.pow(location.getLoc()[i], 2));	
+		for (int i = 2; i <= PROBLEM_DIMENSION; i++) {
+			sum = sum + (Math.pow(location.getLoc()[i-1], 2));	
 		}
 		
-		answer = Math.pow(location.getLoc()[1], 2) + ten_6*sum;
+		answer = Math.pow(location.getLoc()[0], 2) + ten_6*sum;
 		return answer;
 	}
 	
@@ -72,20 +73,20 @@ public class Functions implements ControlParameters {
 		
 		double sum = 0;
 		double ten_6 = Math.pow(10, 6);
-		for (int i = 1; i < PROBLEM_DIMENSION; i++) {
-			sum = sum + (Math.pow(location.getLoc()[i], 2));	
+		for (int i = 2; i <= PROBLEM_DIMENSION; i++) {
+			sum = sum + (Math.pow(location.getLoc()[i-1], 2));	
 		}
 		
-		answer = ten_6*Math.pow(location.getLoc()[1], 2) + sum;
+		answer = ten_6*Math.pow(location.getLoc()[0], 2) + sum;
 		return answer;
 	}
 	
 	public static double AssignFitness_Rosenbrock(Location location) {	
 		double sum = 0;
 		double answer;
-		for (int i = 0; i < (PROBLEM_DIMENSION-1); i++) {
-			double calculate = (Math.pow(location.getLoc()[i], 2) - location.getLoc()[i+1]);
-			double calculate1 = (Math.pow( (location.getLoc()[i] - 1) , 2 )); 
+		for (int i = 1; i <= (PROBLEM_DIMENSION-1); i++) {
+			double calculate = (Math.pow(location.getLoc()[i-1], 2) - location.getLoc()[i]);
+			double calculate1 = (Math.pow( (location.getLoc()[i-1] - 1) , 2 )); 
 			sum = sum + ((100*Math.pow(calculate, 2))+(calculate1));
 		}
 		
@@ -98,9 +99,9 @@ public class Functions implements ControlParameters {
 		
 		double sum1 = 0.0;
 		double sum2 = 0.0;
-		for (int i = 0 ; i < PROBLEM_DIMENSION ; i++) {
-		        sum1 += Math.pow(location.getLoc()[i], 2);
-		        sum2 += (Math.cos(2*Math.PI*location.getLoc()[i]));
+		for (int i = 1; i <= PROBLEM_DIMENSION ; i++) {
+		        sum1 += Math.pow(location.getLoc()[i-1], 2);
+		        sum2 += (Math.cos(2*Math.PI*location.getLoc()[i-1]));
 		}
 		
 		answer = ((-20.0)*(Math.exp(-0.2*Math.sqrt(sum1/PROBLEM_DIMENSION))) - Math.exp(sum2 / PROBLEM_DIMENSION) + 20  + Math.exp(1.0));
@@ -115,9 +116,9 @@ public class Functions implements ControlParameters {
 		double PIx2 =  Math.PI * 2.0;
 		
 		double sum1 = 0.0;
-	    for (int i = 0; i < PROBLEM_DIMENSION; i++) {
+	    for (int i = 1; i <= PROBLEM_DIMENSION; i++) {
 	      for (int k = 0; k <= Kmax; k++) {
-	        sum1 += Math.pow(a, k) * Math.cos(PIx2 * Math.pow(b, k) * (location.getLoc()[i] + 0.5));
+	        sum1 += Math.pow(a, k) * Math.cos(PIx2 * Math.pow(b, k) * (location.getLoc()[i-1] + 0.5));
 	      }
 	    }
 	    
@@ -135,9 +136,9 @@ public class Functions implements ControlParameters {
 
 		double sum = 0;
 		double multiply = 1;
-		for (int i = 0; i < PROBLEM_DIMENSION; i++) {
-			sum += (Math.pow(location.getLoc()[i], 2)/4000);
-			multiply *= Math.cos(location.getLoc()[i]/Math.sqrt(i));
+		for (int i = 1; i <= PROBLEM_DIMENSION; i++) {
+			sum += (Math.pow(location.getLoc()[i-1], 2)/4000);
+			multiply *= Math.cos(location.getLoc()[i-1]/Math.sqrt(i));
 		}
 		
 		answer = sum - multiply + 1;
@@ -150,8 +151,8 @@ public class Functions implements ControlParameters {
 
 		
 		double sum = 0;
-		for (int i = 0; i < PROBLEM_DIMENSION; i++) {
-			sum += (Math.pow(location.getLoc()[i], 2) - (10 * Math.cos(PIx2*location.getLoc()[i])) + 10);	
+		for (int i = 1; i <= PROBLEM_DIMENSION; i++) {
+			sum += (Math.pow(location.getLoc()[i-1], 2) - (10 * Math.cos(PIx2*location.getLoc()[i-1])) + 10);	
 		}
 		
 		answer = sum;
@@ -164,7 +165,7 @@ public class Functions implements ControlParameters {
         double product = 1;	  	
         for (int i = 0; i < PROBLEM_DIMENSION; i++) {	
         	double sum = 0;
-        	for (int j = 0; j <= 32; j++)  {	
+        	for (int j = 1; j <= 32; j++)  {	
         		double term = Math.pow(2, j) * location.getLoc()[i];	 	             
         		sum += Math.abs(term - Math.round(term)) / Math.pow(2, j);
         	}	 	            
