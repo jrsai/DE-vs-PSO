@@ -25,7 +25,7 @@ public class testClass implements ControlParameters {
 		System.out.println("Runtime:" +  totalTime + "ms");
 		
 		fileNameGenerator();
-		tallyData();
+//		tallyData();
 		
 		calculateMean();
 		calculateWorst();
