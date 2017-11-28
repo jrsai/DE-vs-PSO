@@ -4,7 +4,7 @@ public interface ControlParameters {
 	int PROBLEM_DIMENSION = 10;	//2, 5, 10
 	int MAX_ITERATION = 3000*PROBLEM_DIMENSION; 
 	
-	int FUNCTION_NUM = 9; 
+	int FUNCTION_NUM = 6; 
 	/* 1 = High Conditioned Elliptic Function (Medium)
 	 * 2 = Bent Cigar Function (Fast)
 	 * 3 = Discus Function (Fast)
